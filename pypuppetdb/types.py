@@ -276,6 +276,10 @@ class Node(object):
     def fact(self, name):
         """Get a single fact from this node."""
         facts = self.__api.facts(name=name, query=self.__query_scope)
+        print 'debug'
+        if not facts:
+            print 'facts is None'
+        print 'debug'
         return next(fact for fact in facts)
 
     def resources(self, type_=None, title=None):
