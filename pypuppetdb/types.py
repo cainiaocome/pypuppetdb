@@ -280,11 +280,11 @@ class Node(object):
             next_fact = next(fact for fact in facts)
         except StopIteration:
             if name=='physicalprocessorcount' or name=='processorcount':
-                return '0'
+                return Fact(self.name, name, '0')
             elif name=='memorytotal' or name=='memoryfree':
-                return '0 GB'
+                return Fact(self.name, name, '0 GB')
             elif name=='blockdevices':
-                return ''
+                return Fact(self.name, name, '')
         return next_fact
             
 
