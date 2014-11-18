@@ -276,11 +276,17 @@ class Node(object):
     def fact(self, name):
         """Get a single fact from this node."""
         facts = self.__api.facts(name=name, query=self.__query_scope)
-        print 'debug'
-        if not facts:
-            print 'facts is None'
-        print 'debug'
-        return next(fact for fact in facts)
+        try:
+            next_fact = next(fact for fact in facts)
+        except StopIteration:
+            if name=='physicalprocessorcount' or name=='processorcount':
+                return '0'
+            elif name=='memorytotal' or name=='memoryfree':
+                return '0 GB'
+            elif name=='blockdevices':
+                return ''
+        return next_fact
+            
 
     def resources(self, type_=None, title=None):
         """Get all resources of this node or all resources of the specified
